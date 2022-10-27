@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ScanCameraView.swift
 //  smafocus
 //
 //  Created by nao on 2022/10/27.

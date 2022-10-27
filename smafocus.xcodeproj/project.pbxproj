@@ -11,7 +11,7 @@
 		806E98F1290A93FC00D6CE6A /* ScanCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */; };
 		806E98F3290A93FD00D6CE6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F2290A93FD00D6CE6A /* Assets.xcassets */; };
 		806E98F6290A93FD00D6CE6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */; };
-		808EEB7A290A970C0002C33B /* BLEConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB71290A970C0002C33B /* BLEConnectionView.swift */; };
+		808EEB7A290A970C0002C33B /* AutoFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB71290A970C0002C33B /* AutoFocusView.swift */; };
 		808EEB7B290A970C0002C33B /* FocusCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB72290A970C0002C33B /* FocusCalibrationView.swift */; };
 		808EEB7C290A970C0002C33B /* MyCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB73290A970C0002C33B /* MyCoreData.xcdatamodeld */; };
 		808EEB7D290A970C0002C33B /* BMCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB75290A970C0002C33B /* BMCameraManager.swift */; };
@@ -27,7 +27,7 @@
 		806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCameraView.swift; sourceTree = "<group>"; };
 		806E98F2290A93FD00D6CE6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		808EEB71290A970C0002C33B /* BLEConnectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEConnectionView.swift; sourceTree = "<group>"; };
+		808EEB71290A970C0002C33B /* AutoFocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoFocusView.swift; sourceTree = "<group>"; };
 		808EEB72290A970C0002C33B /* FocusCalibrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusCalibrationView.swift; sourceTree = "<group>"; };
 		808EEB74290A970C0002C33B /* MyCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyCoreData.xcdatamodel; sourceTree = "<group>"; };
 		808EEB75290A970C0002C33B /* BMCameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BMCameraManager.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				808EEB84290A99FF0002C33B /* Info.plist */,
-				808EEB71290A970C0002C33B /* BLEConnectionView.swift */,
+				808EEB71290A970C0002C33B /* AutoFocusView.swift */,
 				808EEB76290A970C0002C33B /* BLEManager.swift */,
 				808EEB77290A970C0002C33B /* BLEServiceSetting.swift */,
 				808EEB75290A970C0002C33B /* BMCameraManager.swift */,
@@ -168,7 +168,7 @@
 				808EEB81290A970C0002C33B /* Persistent.swift in Sources */,
 				808EEB80290A970C0002C33B /* NavigaionShare.swift in Sources */,
 				808EEB7E290A970C0002C33B /* BLEManager.swift in Sources */,
-				808EEB7A290A970C0002C33B /* BLEConnectionView.swift in Sources */,
+				808EEB7A290A970C0002C33B /* AutoFocusView.swift in Sources */,
 				808EEB7F290A970C0002C33B /* BLEServiceSetting.swift in Sources */,
 				806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */,
 				808EEB7C290A970C0002C33B /* MyCoreData.xcdatamodeld in Sources */,

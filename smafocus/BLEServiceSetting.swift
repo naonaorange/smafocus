@@ -1,6 +1,6 @@
 //
 //  BLEServiceSetting.swift
-//  BLESample
+//  smafocus
 //
 //  Created by nao on 2022/10/23.
 //

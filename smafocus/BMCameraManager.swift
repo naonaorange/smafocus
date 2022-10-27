@@ -1,6 +1,6 @@
 //
-//  BMCameraManagerViewModel.swift
-//  BLESample
+//  BMCameraManager.swift
+//  smafocus
 //
 //  Created by nao on 2022/10/23.
 //
