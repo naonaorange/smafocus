@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		806E98EF290A93FC00D6CE6A /* smafocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98EE290A93FC00D6CE6A /* smafocusApp.swift */; };
+		806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */; };
 		806E98F1290A93FC00D6CE6A /* ScanCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */; };
 		806E98F3290A93FD00D6CE6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F2290A93FD00D6CE6A /* Assets.xcassets */; };
 		806E98F6290A93FD00D6CE6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */; };
@@ -15,7 +15,7 @@
 
 /* Begin PBXFileReference section */
 		806E98EB290A93FC00D6CE6A /* smafocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smafocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		806E98EE290A93FC00D6CE6A /* smafocusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smafocusApp.swift; sourceTree = "<group>"; };
+		806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmafocusApp.swift; sourceTree = "<group>"; };
 		806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCameraView.swift; sourceTree = "<group>"; };
 		806E98F2290A93FD00D6CE6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		806E98ED290A93FC00D6CE6A /* smafocus */ = {
 			isa = PBXGroup;
 			children = (
-				806E98EE290A93FC00D6CE6A /* smafocusApp.swift */,
+				806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */,
 				806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */,
 				806E98F2290A93FD00D6CE6A /* Assets.xcassets */,
 				806E98F4290A93FD00D6CE6A /* Preview Content */,
@@ -138,7 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				806E98F1290A93FC00D6CE6A /* ScanCameraView.swift in Sources */,
-				806E98EF290A93FC00D6CE6A /* smafocusApp.swift in Sources */,
+				806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

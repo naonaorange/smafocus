@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct smafocusApp: App {
+struct SmafocusApp: App {
     var body: some Scene {
         WindowGroup {
             ScanCameraView()
