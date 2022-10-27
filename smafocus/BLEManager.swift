@@ -13,7 +13,7 @@ class BLEManager: NSObject, Identifiable, ObservableObject, CBCentralManagerDele
     @Published var isConnecting : Bool = false
     @Published var peripherals : [Peripherals] = []
     @Published var connectionPeripheral : CBPeripheral?
-    @Published var receivedData : String = ""
+    @Published var deviceName : String = ""
     @Published var isReadyToTransmit : Bool = true
     
     public var changeConnectionState : (() -> Void)!
@@ -181,7 +181,7 @@ class BLEManager: NSObject, Identifiable, ObservableObject, CBCentralManagerDele
             guard let data = characteristic.value else{
                 return
             }
-            receivedData = String(bytes: data, encoding: .utf8)!
+            deviceName = String(bytes: data, encoding: .utf8)!
             
             isConnecting = true
             isScaning = false

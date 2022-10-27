@@ -17,6 +17,8 @@ struct ScanCameraView: View {
             VStack{
                 NavigationLink(destination: FocusCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
                 NavigationLink(destination: BLEConnectionView(), isActive: $bleManager.isConnecting, label: {EmptyView()})
+                Text("Camera List")
+                    .padding()
                 List(selection: $selectedPeripheralName){
                     ForEach(bleManager.peripherals){ p in
                         Text(p.name).tag(p.name)
@@ -37,6 +39,7 @@ struct ScanCameraView: View {
                         }, label: {Text("START SEACHING FOR CAMERAS")})
                     }
                 }
+                .padding()
             }
                 //.navigationBarTitle(Text("BLE SAMPLE APP"))
         }

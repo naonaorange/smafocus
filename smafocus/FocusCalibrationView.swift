@@ -24,7 +24,7 @@ struct FocusCalibrationView: View {
                 List{
                     Section(header: Text("Distance")){
                         if (focusCalibrations.count > 0){
-                            var f = focusCalibrations[0]
+                            let f = focusCalibrations[0]
                             Text("\(f.distance1)")
                             Text("\(f.distance2)")
                         }
@@ -34,7 +34,7 @@ struct FocusCalibrationView: View {
                 List{
                     Section(header: Text("Focus")){
                         if (focusCalibrations.count > 0){
-                            var f = focusCalibrations[0]
+                            let f = focusCalibrations[0]
                             Text("\(f.focus1)")
                             Text("\(f.focus2)")
                         }

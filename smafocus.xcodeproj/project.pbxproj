@@ -69,15 +69,15 @@
 			isa = PBXGroup;
 			children = (
 				808EEB84290A99FF0002C33B /* Info.plist */,
+				806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */,
+				806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */,
 				808EEB71290A970C0002C33B /* AutoFocusView.swift */,
+				808EEB72290A970C0002C33B /* FocusCalibrationView.swift */,
 				808EEB76290A970C0002C33B /* BLEManager.swift */,
 				808EEB77290A970C0002C33B /* BLEServiceSetting.swift */,
 				808EEB75290A970C0002C33B /* BMCameraManager.swift */,
-				808EEB72290A970C0002C33B /* FocusCalibrationView.swift */,
 				808EEB78290A970C0002C33B /* NavigaionShare.swift */,
 				808EEB79290A970C0002C33B /* Persistent.swift */,
-				806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */,
-				806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */,
 				808EEB73290A970C0002C33B /* MyCoreData.xcdatamodeld */,
 				806E98F2290A93FD00D6CE6A /* Assets.xcassets */,
 				806E98F4290A93FD00D6CE6A /* Preview Content */,
