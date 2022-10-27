@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct SmafocusApp: App {
+    let persistenceController = PersistenceController()
     var body: some Scene {
         WindowGroup {
             ScanCameraView()
+                .environmentObject(BMCameraManager())
+                .environmentObject(NavigationShare())
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

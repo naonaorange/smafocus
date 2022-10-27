@@ -8,19 +8,48 @@
 import SwiftUI
 
 struct ScanCameraView: View {
+    @State private var selectedPeripheralName: String? = ""
+    @EnvironmentObject var bleManager : BMCameraManager
+    @EnvironmentObject var navigationShare : NavigationShare
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            VStack{
+                NavigationLink(destination: FocusCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
+                NavigationLink(destination: BLEConnectionView(), isActive: $bleManager.isConnecting, label: {EmptyView()})
+                List(selection: $selectedPeripheralName){
+                    ForEach(bleManager.peripherals){ p in
+                        Text(p.name).tag(p.name)
+                    }
+                }
+                Button(action: {
+                    navigationShare.isCalibrating = true
+                }, label: {Text("Calib")})
+            }
+                //.navigationBarTitle(Text("BLE SAMPLE APP"))
+                .navigationBarItems(trailing: Group{
+                    if selectedPeripheralName != "" {
+                        Button(action: {
+                            bleManager.connect(peripheralName: selectedPeripheralName!)
+                        }, label: {Text("CONNECT")})
+                    }else if(bleManager.isScaning){
+                        Button(action: {
+                            bleManager.stopScan()
+                        }, label: {Text("STOP SCAN")})
+                    }else{
+                        Button(action: {
+                            bleManager.startScan()
+                        }, label: {Text("START SCAN")})
+                    }
+                })
         }
-        .padding()
     }
 }
 
 struct ScanCameraView_Previews: PreviewProvider {
     static var previews: some View {
         ScanCameraView()
+            .environmentObject(BMCameraManager())
+            .environmentObject(NavigationShare())
     }
 }
