@@ -41,7 +41,8 @@ struct SearchCameraView: View {
                 }
                 .padding()
             }
-                //.navigationBarTitle(Text("BLE SAMPLE APP"))
+            .navigationBarTitle(Text("Search for Cameras"))
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

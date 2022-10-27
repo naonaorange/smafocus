@@ -20,6 +20,7 @@ struct LensCalibrationView: View {
     
     var body: some View {
         VStack{
+            Text("")
             HStack{
                 List{
                     Section(header: Text("Distance")){
@@ -90,6 +91,8 @@ struct LensCalibrationView: View {
             }, label: {Text("calib false")})
         }
         .onAppear(perform: {onAppear()})
+        .navigationBarTitle(Text("Lens Calibration"))
+        .navigationBarBackButtonHidden(true)
     }
     
     func onAppear(){

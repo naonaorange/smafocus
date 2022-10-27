@@ -17,6 +17,7 @@ struct BLEConnectionView: View {
         //NavigationView{
             VStack{
                 NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
+                Text("")
                 Text("Camera : \(bleManager.deviceName)")
                 Text("Lens Calibration : ")
                 Button(action: {
@@ -28,7 +29,8 @@ struct BLEConnectionView: View {
                 }, label: {Text("DISCONNECT")})
                 .padding()
             }
-                //.navigationBarTitle(Text("CONNECTION VIEW"))
+            .navigationBarTitle(Text("Auto Focus"))
+            .navigationBarBackButtonHidden(true)
         //}
     }
 }
