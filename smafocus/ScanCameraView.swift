@@ -22,26 +22,23 @@ struct ScanCameraView: View {
                         Text(p.name).tag(p.name)
                     }
                 }
-                Button(action: {
-                    navigationShare.isCalibrating = true
-                }, label: {Text("Calib")})
-            }
-                //.navigationBarTitle(Text("BLE SAMPLE APP"))
-                .navigationBarItems(trailing: Group{
+                Group{
                     if selectedPeripheralName != "" {
                         Button(action: {
                             bleManager.connect(peripheralName: selectedPeripheralName!)
-                        }, label: {Text("CONNECT")})
+                        }, label: {Text("CONNECT TO CAMERA")})
                     }else if(bleManager.isScaning){
                         Button(action: {
                             bleManager.stopScan()
-                        }, label: {Text("STOP SCAN")})
+                        }, label: {Text("STOP SEACHING FOR CAMERAS")})
                     }else{
                         Button(action: {
                             bleManager.startScan()
-                        }, label: {Text("START SCAN")})
+                        }, label: {Text("START SEACHING FOR CAMERAS")})
                     }
-                })
+                }
+            }
+                //.navigationBarTitle(Text("BLE SAMPLE APP"))
         }
     }
 }
