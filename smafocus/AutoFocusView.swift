@@ -16,7 +16,7 @@ struct BLEConnectionView: View {
     var body: some View {
         //NavigationView{
             VStack{
-                NavigationLink(destination: FocusCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
+                NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
                 Text("Camera : \(bleManager.deviceName)")
                 Text("Lens Calibration : ")
                 Button(action: {

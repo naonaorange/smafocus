@@ -15,7 +15,7 @@ struct SearchCameraView: View {
     var body: some View {
         NavigationView {
             VStack{
-                NavigationLink(destination: FocusCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
+                NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
                 NavigationLink(destination: BLEConnectionView(), isActive: $bleManager.isConnecting, label: {EmptyView()})
                 Text("Camera List")
                     .padding()
