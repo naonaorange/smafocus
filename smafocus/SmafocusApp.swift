@@ -12,7 +12,7 @@ struct SmafocusApp: App {
     let persistenceController = PersistenceController()
     var body: some Scene {
         WindowGroup {
-            ScanCameraView()
+            SearchCameraView()
                 .environmentObject(BMCameraManager())
                 .environmentObject(NavigationShare())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)

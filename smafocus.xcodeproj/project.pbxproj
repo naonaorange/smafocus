@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */; };
-		806E98F1290A93FC00D6CE6A /* ScanCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */; };
+		806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */; };
 		806E98F3290A93FD00D6CE6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F2290A93FD00D6CE6A /* Assets.xcassets */; };
 		806E98F6290A93FD00D6CE6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */; };
 		808EEB7A290A970C0002C33B /* AutoFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB71290A970C0002C33B /* AutoFocusView.swift */; };
@@ -24,7 +24,7 @@
 /* Begin PBXFileReference section */
 		806E98EB290A93FC00D6CE6A /* smafocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smafocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmafocusApp.swift; sourceTree = "<group>"; };
-		806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCameraView.swift; sourceTree = "<group>"; };
+		806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCameraView.swift; sourceTree = "<group>"; };
 		806E98F2290A93FD00D6CE6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806E98F5290A93FD00D6CE6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		808EEB71290A970C0002C33B /* AutoFocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoFocusView.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 			children = (
 				808EEB84290A99FF0002C33B /* Info.plist */,
 				806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */,
-				806E98F0290A93FC00D6CE6A /* ScanCameraView.swift */,
+				806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */,
 				808EEB71290A970C0002C33B /* AutoFocusView.swift */,
 				808EEB72290A970C0002C33B /* FocusCalibrationView.swift */,
 				808EEB76290A970C0002C33B /* BLEManager.swift */,
@@ -164,7 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				808EEB7B290A970C0002C33B /* FocusCalibrationView.swift in Sources */,
-				806E98F1290A93FC00D6CE6A /* ScanCameraView.swift in Sources */,
+				806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */,
 				808EEB81290A970C0002C33B /* Persistent.swift in Sources */,
 				808EEB80290A970C0002C33B /* NavigaionShare.swift in Sources */,
 				808EEB7E290A970C0002C33B /* BLEManager.swift in Sources */,

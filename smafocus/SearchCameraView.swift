@@ -1,5 +1,5 @@
 //
-//  ScanCameraView.swift
+//  SearchCameraView.swift
 //  smafocus
 //
 //  Created by nao on 2022/10/27.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScanCameraView: View {
+struct SearchCameraView: View {
     @State private var selectedPeripheralName: String? = ""
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
@@ -46,9 +46,9 @@ struct ScanCameraView: View {
     }
 }
 
-struct ScanCameraView_Previews: PreviewProvider {
+struct SearchCameraView_Previews: PreviewProvider {
     static var previews: some View {
-        ScanCameraView()
+        SearchCameraView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
     }
