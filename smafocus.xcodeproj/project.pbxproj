@@ -19,6 +19,7 @@
 		808EEB89290B1C000002C33B /* MyCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB87290B1C000002C33B /* MyCoreData.xcdatamodeld */; };
 		808EEB8B290B1CA80002C33B /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB8A290B1CA80002C33B /* Persistent.swift */; };
 		808EEB8D290B1EBF0002C33B /* NavigaionShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB8C290B1EBF0002C33B /* NavigaionShare.swift */; };
+		808EEB8F290C656C0002C33B /* LensCalibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808EEB8E290C656C0002C33B /* LensCalibrationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		808EEB88290B1C000002C33B /* MyCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyCoreData.xcdatamodel; sourceTree = "<group>"; };
 		808EEB8A290B1CA80002C33B /* Persistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
 		808EEB8C290B1EBF0002C33B /* NavigaionShare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigaionShare.swift; sourceTree = "<group>"; };
+		808EEB8E290C656C0002C33B /* LensCalibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensCalibrationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				808EEB76290A970C0002C33B /* BLEManager.swift */,
 				808EEB77290A970C0002C33B /* BLEServiceSetting.swift */,
 				808EEB75290A970C0002C33B /* BMCameraManager.swift */,
+				808EEB8E290C656C0002C33B /* LensCalibrationManager.swift */,
 				808EEB87290B1C000002C33B /* MyCoreData.xcdatamodeld */,
 				808EEB8A290B1CA80002C33B /* Persistent.swift */,
 				806E98F2290A93FD00D6CE6A /* Assets.xcassets */,
@@ -173,6 +176,7 @@
 				808EEB8B290B1CA80002C33B /* Persistent.swift in Sources */,
 				806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */,
 				808EEB7D290A970C0002C33B /* BMCameraManager.swift in Sources */,
+				808EEB8F290C656C0002C33B /* LensCalibrationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

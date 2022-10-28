@@ -17,7 +17,7 @@ struct SearchCameraView: View {
             VStack{
                 NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
                 NavigationLink(destination: BLEConnectionView(), isActive: $bleManager.isConnecting, label: {EmptyView()})
-                Text("Camera List")
+                Text("")
                     .padding()
                 List(selection: $selectedPeripheralName){
                     ForEach(bleManager.peripherals){ p in
@@ -41,7 +41,7 @@ struct SearchCameraView: View {
                 }
                 .padding()
             }
-            .navigationBarTitle(Text("Search for Cameras"))
+            .navigationBarTitle(Text("smafocus"))
             .navigationBarBackButtonHidden(true)
         }
     }

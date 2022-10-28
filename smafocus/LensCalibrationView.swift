@@ -11,38 +11,40 @@ import CoreData
 struct LensCalibrationView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
-    
-    @Environment(\.managedObjectContext) var viewContext
-    @FetchRequest(sortDescriptors: [])
-    var lensCalibrations : FetchedResults<LensCalibration>
+    @EnvironmentObject var lensCalibrationManager : LensCalibrationManager
     
     @State var focusSliderValue : Double = 0.0
     
     var body: some View {
         VStack{
-            Text("")
-            HStack{
-                List{
-                    Section(header: Text("Distance")){
-                        if (lensCalibrations.count > 0){
-                            let l = lensCalibrations[0]
-                            Text("\(l.distance1)")
-                            Text("\(l.distance2)")
-                        }
-                    }
+            Text("Calibrate Lens Parameters")
+            List{
+                HStack{
+                    Spacer()
+                    Text("Distance [mm]")
+                    Spacer()
+                    Spacer()
+                    Text("Focus        ")
+                    Spacer()
                 }
-                .listStyle(GroupedListStyle())
-                List{
-                    Section(header: Text("Focus")){
-                        if (lensCalibrations.count > 0){
-                            let l = lensCalibrations[0]
-                            Text("\(l.focus1)")
-                            Text("\(l.focus2)")
-                        }
-                    }
+                HStack{
+                    Spacer()
+                    Text("\(lensCalibrationManager.distance1)")
+                    Spacer()
+                    Spacer()
+                    Text("\(lensCalibrationManager.distance2)")
+                    Spacer()
                 }
-                .listStyle(GroupedListStyle())
+                HStack{
+                    Spacer()
+                    Text("\(lensCalibrationManager.focus1)")
+                    Spacer()
+                    Spacer()
+                    Text("\(lensCalibrationManager.focus2)")
+                    Spacer()
+                }
             }
+                .listStyle(GroupedListStyle())
             Text("Focus Value : \(Int(focusSliderValue))")
                         
             Slider(
@@ -88,34 +90,11 @@ struct LensCalibrationView: View {
                 navigationShare.isCalibrating = false
                 bleManager.isConnecting = false
                 bleManager.isConnecting = true
-            }, label: {Text("calib false")})
+            }, label: {Text("Exit Calibration Mode")})
+            .padding()
         }
-        .onAppear(perform: {onAppear()})
         .navigationBarTitle(Text("Lens Calibration"))
         .navigationBarBackButtonHidden(true)
-    }
-    
-    func onAppear(){
-        if (lensCalibrations.count <= 0){
-            initializeLensCalibration()
-        }
-    }
-    
-    func initializeLensCalibration(){
-        let l = LensCalibration(context: viewContext)
-        l.distance1 = 0.0
-        l.distance2 = 0.0
-        l.focus1 = 0.0
-        l.focus2 = 0.0
-        l.name = "default name"
-        l.slope = 0.0
-        l.intercept = 0.0
-        l.version = 1
-        do{
-            try viewContext.save()
-        }catch{
-            print("[LensCalibrationView] Error! : Failed to initialize the lens calibration")
-        }
     }
 }
 
@@ -124,5 +103,6 @@ struct LensCalibrationView_Previews: PreviewProvider {
         LensCalibrationView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
+            .environmentObject(LensCalibrationManager())
     }
 }
