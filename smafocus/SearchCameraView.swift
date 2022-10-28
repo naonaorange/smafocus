@@ -28,15 +28,15 @@ struct SearchCameraView: View {
                     if selectedPeripheralName != "" {
                         Button(action: {
                             bleManager.connect(peripheralName: selectedPeripheralName!)
-                        }, label: {Text("CONNECT TO CAMERA")})
+                        }, label: {Text("CONNECT")})
                     }else if(bleManager.isScaning){
                         Button(action: {
                             bleManager.stopScan()
-                        }, label: {Text("STOP SEACHING FOR CAMERAS")})
+                        }, label: {Text("STOP SEACHING")})
                     }else{
                         Button(action: {
                             bleManager.startScan()
-                        }, label: {Text("START SEACHING FOR CAMERAS")})
+                        }, label: {Text("START SEACHING")})
                     }
                 }
                 .padding()

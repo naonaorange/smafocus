@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct BLEConnectionView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
     
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(sortDescriptors: [])
+    var lensCalibrations : FetchedResults<LensCalibration>
+    
     //@Binding var navigationPath: [String]
+    @State var selection = 0
     
     var body: some View {
         //NavigationView{
@@ -19,7 +25,18 @@ struct BLEConnectionView: View {
                 NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
                 Text("")
                 Text("Camera : \(bleManager.deviceName)")
-                Text("Lens Calibration : ")
+                HStack{
+                    Text("Lens Calibration : ")
+                    Picker(selection: $selection, label: Text("")){
+                        if (lensCalibrations.count > 0){
+                            let l = lensCalibrations[0]
+                            Text("\(l.name!)")
+                        }else{
+                            Text("")
+                        }
+                    }
+                    
+                }
                 Button(action: {
                     navigationShare.isCalibrating = true
                 }, label: {Text("CALIBRATION")})
