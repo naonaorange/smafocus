@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 import CoreData
 
-class LensCalibrationManager : ObservableObject{
+struct LensCalibrationManager {
+    /*
     var distance1 = 0.0
     var distance2 = 0.0
     var focus1 = 0.0
@@ -18,8 +19,15 @@ class LensCalibrationManager : ObservableObject{
     var slope = 0.0
     var intercept = 0.0
     var version = 1
+    */
+    let container : NSPersistentContainer
     
     init(){
+        container = NSPersistentContainer(name: "MyCoreData")
+        container.loadPersistentStores(completionHandler: {(storeDescription, error) in
+            if let error = error as NSError? {
+                print("error!")
+            }
+        })
     }
-    
 }

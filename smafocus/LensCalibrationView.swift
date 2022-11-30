@@ -11,13 +11,47 @@ import CoreData
 struct LensCalibrationView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
-    @EnvironmentObject var lensCalibrationManager : LensCalibrationManager
+    //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
     
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(sortDescriptors: [])
+    var lensCalibrations : FetchedResults<LensCalibration>
+    
+    @State var lensCalibrationName = ""
     @State var focusSliderValue : Double = 0.0
     
     var body: some View {
         VStack{
             Text("Calibrate Lens Parameters")
+            TextField("Lens Calibration Name", text: $lensCalibrationName)
+            List{
+                ForEach(lensCalibrations) {calib in
+                    if((calib.name?.isEmpty) == false) {
+                        Text(calib.name!)
+                    }
+                }
+            }
+            Button(action: {
+                let c = LensCalibration(context: viewContext)
+                c.name = "test"
+                do{
+                    try viewContext.save()
+                } catch{
+                    print("error")
+                }
+            }, label: {Text("save")})
+            .padding()
+            Button(action: {
+                for i in (0 ..< lensCalibrations.count).reversed(){
+                    viewContext.delete(lensCalibrations[i])
+                    do{
+                        try viewContext.save()
+                    } catch{
+                        print("error")
+                    }
+                }
+            }, label: {Text("delete")})
+            /*
             List{
                 HStack{
                     Spacer()
@@ -45,6 +79,7 @@ struct LensCalibrationView: View {
                 }
             }
                 .listStyle(GroupedListStyle())
+            */
             Text("Focus Value : \(Int(focusSliderValue))")
                         
             Slider(
@@ -96,6 +131,7 @@ struct LensCalibrationView: View {
         .navigationBarTitle(Text("Lens Calibration"))
         .navigationBarBackButtonHidden(true)
     }
+    
 }
 
 struct LensCalibrationView_Previews: PreviewProvider {
@@ -103,6 +139,6 @@ struct LensCalibrationView_Previews: PreviewProvider {
         LensCalibrationView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
-            .environmentObject(LensCalibrationManager())
+            //.environmentObject(LensCalibrationManager())
     }
 }

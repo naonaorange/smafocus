@@ -15,7 +15,7 @@ struct SmafocusApp: App {
             SearchCameraView()
                 .environmentObject(BMCameraManager())
                 .environmentObject(NavigationShare())
-                .environmentObject(LensCalibrationManager())
+                //.environmentObject(LensCalibrationManager())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

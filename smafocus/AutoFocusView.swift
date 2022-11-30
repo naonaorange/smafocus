@@ -17,7 +17,7 @@ struct Person: Identifiable {
 struct BLEConnectionView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
-    @EnvironmentObject var lensCalibrationManager : LensCalibrationManager
+    //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
     
     @State var selection = 0
     
@@ -30,9 +30,11 @@ struct BLEConnectionView: View {
             Text("Camera : \(bleManager.deviceName)")
             HStack{
                 Text("Lens Calibration : ")
+                /*
                 Picker(selection: $selection, label: Text("")){
                     Text(lensCalibrationManager.name)
                 }
+                */
                 
             }
             Button(action: {
@@ -55,6 +57,6 @@ struct BLEConnectionView_Previews: PreviewProvider {
         BLEConnectionView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
-            .environmentObject(LensCalibrationManager())
+            //.environmentObject(LensCalibrationManager())
     }
 }
