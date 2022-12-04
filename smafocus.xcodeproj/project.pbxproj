@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802A8B5F293C29D200BBE07B /* FaceDepthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */; };
 		806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */; };
 		806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */; };
 		806E98F3290A93FD00D6CE6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F2290A93FD00D6CE6A /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDepthManager.swift; sourceTree = "<group>"; };
 		806E98EB290A93FC00D6CE6A /* smafocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smafocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmafocusApp.swift; sourceTree = "<group>"; };
 		806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCameraView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				808EEB76290A970C0002C33B /* BLEManager.swift */,
 				808EEB77290A970C0002C33B /* BLEServiceSetting.swift */,
 				808EEB75290A970C0002C33B /* BMCameraManager.swift */,
+				802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */,
 				808EEB8E290C656C0002C33B /* LensCalibrationManager.swift */,
 				808EEB87290B1C000002C33B /* MyCoreData.xcdatamodeld */,
 				808EEB8A290B1CA80002C33B /* Persistent.swift */,
@@ -166,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				802A8B5F293C29D200BBE07B /* FaceDepthManager.swift in Sources */,
 				808EEB8D290B1EBF0002C33B /* NavigaionShare.swift in Sources */,
 				808EEB89290B1C000002C33B /* MyCoreData.xcdatamodeld in Sources */,
 				806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */,
@@ -309,10 +313,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = smafocus/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "To connect a camera via bluetooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "To communicate to a camera via bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To recognize a face from camera image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -340,10 +346,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = smafocus/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "To connect a camera via bluetooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "To communicate to a camera via bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To recognize a face from camera image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

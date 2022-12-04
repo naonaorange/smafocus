@@ -57,6 +57,7 @@ struct BLEConnectionView_Previews: PreviewProvider {
         BLEConnectionView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
+            .environmentObject(FaceDepthManager())
             //.environmentObject(LensCalibrationManager())
     }
 }

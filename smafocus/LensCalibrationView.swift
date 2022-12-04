@@ -139,6 +139,7 @@ struct LensCalibrationView_Previews: PreviewProvider {
         LensCalibrationView()
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
+            .environmentObject(FaceDepthManager())
             //.environmentObject(LensCalibrationManager())
     }
 }
