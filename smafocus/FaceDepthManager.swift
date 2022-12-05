@@ -20,17 +20,21 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     var colorPixelBuffer: CVPixelBuffer!
     var depthPixelBuffer: CVPixelBuffer!
     var confidencePixelBuffer: CVPixelBuffer!
-    var faceDepth = 0.0
     let context = CIContext(options: nil)
+    var sessionCount = 0
     
     //var colorImageDrawLayer: CALayer?
     //var depthImageDrawLayer: CALayer?
     //private var colorImageFaceViews = [UIView]()
     //private var depthImageFaceViews = [UIView]()
     
+    var faceDepth = 0.0
+    var faceDepthBuffer = [0.0, 0.0, 0.0, 0.0, 0.0]
+    var faceDepthIndex = 0
+    
     override init(){
         super.init()
-        start()
+        //start()
     }
     
     func start(){
@@ -47,6 +51,10 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         sceneView.session.delegate = self
     }
     
+    func stop() {
+        sceneView.session.pause()
+    }
+    
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if ((session.currentFrame?.capturedImage == nil) ||
             (session.currentFrame?.sceneDepth?.depthMap == nil) ||
@@ -58,6 +66,12 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         confidencePixelBuffer = session.currentFrame?.sceneDepth?.confidenceMap
         
         //print(CVPixelBufferGetWidth(colorPixelBuffer), CVPixelBufferGetHeight(colorPixelBuffer))
+        //print(sessionCount)
+        sessionCount = sessionCount + 1
+        
+        if (sessionCount % 5 != 0) {
+            return
+        }
         
         let colorCIImage = CIImage(cvPixelBuffer: self.colorPixelBuffer)
         self.colorCGImage = context.createCGImage(colorCIImage, from: colorCIImage.extent)
@@ -75,7 +89,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
             return
         }
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             //_ = self.colorImageFaceViews.map { $0.removeFromSuperview() }
             //self.colorImageFaceViews.removeAll()
             //_ = self.depthImageFaceViews.map { $0.removeFromSuperview() }
@@ -88,8 +102,14 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                 }
                 faceCount += 1
                 //print(face.boundingBox)
-                self.faceDepth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face)
-                //print(self.faceDepth)
+                let depth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face)
+                faceDepthBuffer[faceDepthIndex] = depth!
+                faceDepth = faceDepthBuffer.reduce(0, +) / Double(faceDepthBuffer.count)
+                faceDepthIndex = faceDepthIndex + 1
+                if (faceDepthIndex >= faceDepthBuffer.count) {
+                    faceDepthIndex = 0
+                }
+                print(self.faceDepth)
                 /*
                 let colorFaceView = self.getFaceView(uiImageView: self.colorImageView, uiImage: self.colorImage, face: face)
                 let depthFaceView = self.getFaceView(uiImageView: self.depthImageView, uiImage: self.depthImage, face: face)
@@ -99,7 +119,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                 self.depthImageFaceViews.append(depthFaceView)
                 */
             }
-        }
+        //}
     }
     
     func getFaceView(uiImageView: UIImageView, uiImage: UIImage, face: VNFaceObservation) -> UIView {
@@ -147,15 +167,15 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         CVPixelBufferUnlockBaseAddress(depthPixelBuffer, .readOnly)
         
         var depthCount = 0
-        var faceDepth = 0.0
+        var depth = 0.0
         for w in faceMinWidth..<faceMaxWidth {
             for h in faceMinHeight..<faceMaxHeight {
-                faceDepth += Double(depthArray[width * h + w])
+                depth += Double(depthArray[width * h + w])
                 depthCount += 1
             }
         }
-        faceDepth /= Double(depthCount)
-        return faceDepth
+        depth /= Double(depthCount)
+        return depth
     }
 }
 

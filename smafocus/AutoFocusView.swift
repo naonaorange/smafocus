@@ -17,6 +17,7 @@ struct Person: Identifiable {
 struct BLEConnectionView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
+    @EnvironmentObject var faceDepthManager : FaceDepthManager
     //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
     
     @State var selection = 0
@@ -27,14 +28,15 @@ struct BLEConnectionView: View {
         VStack{
             NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
             Text("")
+            /*
             Text("Camera : \(bleManager.deviceName)")
             HStack{
                 Text("Lens Calibration : ")
-                /*
-                Picker(selection: $selection, label: Text("")){
-                    Text(lensCalibrationManager.name)
-                }
-                */
+            }
+            */
+            if faceDepthManager.colorCGImage != nil {
+                Image(faceDepthManager.colorCGImage, scale: 7, label: Text("colorCGImage"))
+                Text("Depth : \(faceDepthManager.faceDepth) [m]")
                 
             }
             Button(action: {
@@ -48,6 +50,12 @@ struct BLEConnectionView: View {
         }
         .navigationBarTitle(Text("Auto Focus"))
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            faceDepthManager.start()
+        }
+        .onDisappear{
+            faceDepthManager.stop()
+        }
     }
 }
 

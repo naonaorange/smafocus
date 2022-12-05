@@ -12,7 +12,7 @@ struct LensCalibrationView: View {
     @EnvironmentObject var bleManager : BMCameraManager
     @EnvironmentObject var navigationShare : NavigationShare
     //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
-    
+    @EnvironmentObject var faceDepthManager : FaceDepthManager
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [])
     var lensCalibrations : FetchedResults<LensCalibration>
@@ -22,8 +22,9 @@ struct LensCalibrationView: View {
     
     var body: some View {
         VStack{
-            Text("Calibrate Lens Parameters")
-            TextField("Lens Calibration Name", text: $lensCalibrationName)
+            //Text("Calibrate Lens Parameters")
+            //TextField("Lens Calibration Name", text: $lensCalibrationName)
+            /*
             List{
                 ForEach(lensCalibrations) {calib in
                     if((calib.name?.isEmpty) == false) {
@@ -31,6 +32,13 @@ struct LensCalibrationView: View {
                     }
                 }
             }
+            */
+            if faceDepthManager.colorCGImage != nil {
+                Image(faceDepthManager.colorCGImage, scale: 8, label: Text("colorCGImage"))
+                Text("Depth : \(faceDepthManager.faceDepth) [m]")
+                
+            }
+            /*
             Button(action: {
                 let c = LensCalibration(context: viewContext)
                 c.name = "test"
@@ -51,6 +59,7 @@ struct LensCalibrationView: View {
                     }
                 }
             }, label: {Text("delete")})
+            */
             /*
             List{
                 HStack{
@@ -90,7 +99,7 @@ struct LensCalibrationView: View {
                    maximumValueLabel: Text("2048"),
                    label: { EmptyView() }
             )
-            .padding()
+            //.padding()
             .onChange(of: focusSliderValue, perform: {newValue in
                 bleManager.changeFocus(focus: Int(newValue))
             })
@@ -120,13 +129,13 @@ struct LensCalibrationView: View {
                 }, label: {Text("+10")})
                 Spacer()
             }
-            .padding()
+            //.padding()
             Button(action: {
                 navigationShare.isCalibrating = false
                 bleManager.isConnecting = false
                 bleManager.isConnecting = true
             }, label: {Text("Exit Calibration Mode")})
-            .padding()
+            //.padding()
         }
         .navigationBarTitle(Text("Lens Calibration"))
         .navigationBarBackButtonHidden(true)
