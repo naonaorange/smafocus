@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Foundation
 
 struct Person: Identifiable {
     public let id = UUID()
@@ -19,7 +20,7 @@ struct BLEConnectionView: View {
     @EnvironmentObject var navigationShare : NavigationShare
     @EnvironmentObject var faceDepthManager : FaceDepthManager
     //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
-    
+        
     @State var selection = 0
     
     var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
@@ -37,8 +38,17 @@ struct BLEConnectionView: View {
             if faceDepthManager.colorCGImage != nil {
                 Image(faceDepthManager.colorCGImage, scale: 7, label: Text("colorCGImage"))
                 Text("Depth : \(faceDepthManager.faceDepth) [m]")
+                Text("Focus: \(faceDepthManager.focus)")
                 
             }
+            Button(action: {
+                faceDepthManager.startAutoFocus(manager: bleManager)
+            }, label: {Text("START AUTO FOCUS")})
+            .padding()
+            Button(action: {
+                faceDepthManager.stopAutoFocus()
+            }, label: {Text("STOP AUTO FOCUS")})
+            .padding()
             Button(action: {
                 navigationShare.isCalibrating = true
             }, label: {Text("CALIBRATION")})

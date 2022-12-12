@@ -22,6 +22,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     var confidencePixelBuffer: CVPixelBuffer!
     let context = CIContext(options: nil)
     var sessionCount = 0
+    var isFaceDetected = false
     
     //var colorImageDrawLayer: CALayer?
     //var depthImageDrawLayer: CALayer?
@@ -29,13 +30,30 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     //private var depthImageFaceViews = [UIView]()
     
     var faceDepth = 0.0
+    //var faceDepthBuffer = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var faceDepthBuffer = [0.0, 0.0, 0.0, 0.0, 0.0]
     var faceDepthIndex = 0
+    
+    var bleManager : BMCameraManager!
+    var isAutoFocus = false
+    var focus = 0.0
+    
     
     override init(){
         super.init()
         //start()
     }
+    
+    public func startAutoFocus(manager: BMCameraManager){
+        self.bleManager = manager
+        self.isAutoFocus = true
+    }
+    
+    public func stopAutoFocus(){
+        self.bleManager = nil
+        self.isAutoFocus = false
+    }
+    
     
     func start(){
         func buildConfigure() -> ARWorldTrackingConfiguration {
@@ -46,6 +64,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
             }
             return configuration
         }
+        isFaceDetected = false
         let configuration = buildConfigure()
         sceneView.session.run(configuration)
         sceneView.session.delegate = self
@@ -86,6 +105,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     func handleDetectedFaces(request: VNRequest?, error: Error?) {
         //if let nsError = error as NSError? {
         if error != nil {
+            isFaceDetected = false
             return
         }
         
@@ -109,7 +129,8 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                 if (faceDepthIndex >= faceDepthBuffer.count) {
                     faceDepthIndex = 0
                 }
-                print(self.faceDepth)
+                isFaceDetected = true
+                //print(self.faceDepth)
                 /*
                 let colorFaceView = self.getFaceView(uiImageView: self.colorImageView, uiImage: self.colorImage, face: face)
                 let depthFaceView = self.getFaceView(uiImageView: self.depthImageView, uiImage: self.depthImage, face: face)
@@ -118,6 +139,19 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                 self.colorImageFaceViews.append(colorFaceView)
                 self.depthImageFaceViews.append(depthFaceView)
                 */
+                
+                if isAutoFocus {
+                    focus = 1693.0 * pow(faceDepth, 0.08)
+                    if (focus < 0) {
+                        focus = 0
+                    }else if (2048 < focus){
+                        focus = 2048
+                    }
+                    DispatchQueue.main.async {
+                        self.bleManager.changeFocus(focus: Int(self.focus))
+                    }
+                }
+                print(self.faceDepth, self.focus)
             }
         //}
     }

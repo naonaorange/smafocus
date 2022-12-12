@@ -167,7 +167,7 @@ class BLEManager: NSObject, Identifiable, ObservableObject, CBCentralManagerDele
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("[BLEManager] Success to write a characteristic")
+        //print("[BLEManager] Success to write a characteristic")
         isReadyToTransmit = true
     }
     
@@ -187,6 +187,6 @@ class BLEManager: NSObject, Identifiable, ObservableObject, CBCentralManagerDele
             isScaning = false
             stopScan()
         }
-        print("[BLEManager] Success to update a characteristic")
+        //print("[BLEManager] Success to update a characteristic")
     }
 }
