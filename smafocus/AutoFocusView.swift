@@ -28,35 +28,34 @@ struct BLEConnectionView: View {
     var body: some View {
         VStack{
             NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
-            Text("")
-            /*
-            Text("Camera : \(bleManager.deviceName)")
             HStack{
-                Text("Lens Calibration : ")
+                if faceDepthManager.colorCGImage != nil {
+                    Image(faceDepthManager.colorCGImage, scale: 5, label: Text("colorCGImage"))
+                    
+                }
+                VStack{
+                    Text("Depth : \(faceDepthManager.faceDepth) [m]")
+                        .padding()
+                    Text("Focus: \(faceDepthManager.focus)")
+                        .padding()
+                    Button(action: {
+                        faceDepthManager.startAutoFocus(manager: bleManager)
+                    }, label: {Text("START AUTO FOCUS")})
+                    .padding()
+                    Button(action: {
+                        faceDepthManager.stopAutoFocus()
+                    }, label: {Text("STOP AUTO FOCUS")})
+                    .padding()
+                    Button(action: {
+                        navigationShare.isCalibrating = true
+                    }, label: {Text("CALIBRATION")})
+                    .padding()
+                    Button(action: {
+                        bleManager.disconnect()
+                    }, label: {Text("DISCONNECT")})
+                    .padding()
+                }
             }
-            */
-            if faceDepthManager.colorCGImage != nil {
-                Image(faceDepthManager.colorCGImage, scale: 7, label: Text("colorCGImage"))
-                Text("Depth : \(faceDepthManager.faceDepth) [m]")
-                Text("Focus: \(faceDepthManager.focus)")
-                
-            }
-            Button(action: {
-                faceDepthManager.startAutoFocus(manager: bleManager)
-            }, label: {Text("START AUTO FOCUS")})
-            .padding()
-            Button(action: {
-                faceDepthManager.stopAutoFocus()
-            }, label: {Text("STOP AUTO FOCUS")})
-            .padding()
-            Button(action: {
-                navigationShare.isCalibrating = true
-            }, label: {Text("CALIBRATION")})
-            .padding()
-            Button(action: {
-                bleManager.disconnect()
-            }, label: {Text("DISCONNECT")})
-            .padding()
         }
         .navigationBarTitle(Text("Auto Focus"))
         .navigationBarBackButtonHidden(true)
