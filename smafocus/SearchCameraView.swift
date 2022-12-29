@@ -43,6 +43,11 @@ struct SearchCameraView: View {
             }
             .navigationBarTitle(Text("smafocus"))
             .navigationBarBackButtonHidden(true)
+            .onAppear(){
+                if(navigationShare.isDebugging){
+                    bleManager.isConnecting = true
+                }
+            }
         }
     }
 }

@@ -72,12 +72,14 @@ class BLEManager: NSObject, Identifiable, ObservableObject, CBCentralManagerDele
     }
     
     func write(data: Data, characteristic: CBCharacteristic, withResponse: Bool){
-        if (isReadyToTransmit){
-            if withResponse {
-                connectionPeripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withResponse)
-                isReadyToTransmit = false
-            }else{
-                connectionPeripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
+        if (isConnecting) {
+            if (isReadyToTransmit){
+                if withResponse {
+                    connectionPeripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withResponse)
+                    isReadyToTransmit = false
+                }else{
+                    connectionPeripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
+                }
             }
         }
     }

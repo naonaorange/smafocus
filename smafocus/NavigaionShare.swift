@@ -9,6 +9,7 @@ import Foundation
 
 class NavigationShare : ObservableObject{
     @Published var isCalibrating : Bool = false
+    @Published var isDebugging : Bool = true
     
     init(){
     }
