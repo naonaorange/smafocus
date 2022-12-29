@@ -55,19 +55,26 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     }
     
     
-    func start(){
-        func buildConfigure() -> ARWorldTrackingConfiguration {
+    func start() -> Bool{
+        var isOk = false
+        func buildConfigure() -> ARWorldTrackingConfiguration? {
             let configuration = ARWorldTrackingConfiguration()
             configuration.environmentTexturing = .automatic
             if type(of: configuration).supportsFrameSemantics(.sceneDepth) {
                configuration.frameSemantics = .sceneDepth
+            }else{
+                return nil
             }
             return configuration
         }
         isFaceDetected = false
         let configuration = buildConfigure()
-        sceneView.session.run(configuration)
-        sceneView.session.delegate = self
+        if (configuration != nil){
+            sceneView.session.run(configuration!)
+            sceneView.session.delegate = self
+            isOk = true
+        }
+        return isOk
     }
     
     func stop() {

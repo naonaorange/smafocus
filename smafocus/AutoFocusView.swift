@@ -22,6 +22,7 @@ struct BLEConnectionView: View {
     //@EnvironmentObject var lensCalibrationManager : LensCalibrationManager
         
     @State var selection = 0
+    @State private var isDisableLidarFunc = false
     
     var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
@@ -60,10 +61,17 @@ struct BLEConnectionView: View {
         .navigationBarTitle(Text("Auto Focus"))
         .navigationBarBackButtonHidden(true)
         .onAppear{
-            faceDepthManager.start()
+            isDisableLidarFunc = !faceDepthManager.start()
         }
         .onDisappear{
             faceDepthManager.stop()
+        }
+        .alert("Alert", isPresented: $isDisableLidarFunc) {
+            Button("OK") {
+                // 了解ボタンが押された時の処理
+            }
+        } message: {
+            Text("Can not run this application. This iPhone is NOT equipped the LiDAR device.")
         }
     }
 }
