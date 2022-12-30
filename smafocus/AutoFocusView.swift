@@ -24,6 +24,8 @@ struct BLEConnectionView: View {
     @State var selection = 0
     @State private var isDisableLidarFunc = false
     
+    let imageScale = 5.0
+    
     var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
@@ -31,8 +33,18 @@ struct BLEConnectionView: View {
             NavigationLink(destination: LensCalibrationView(), isActive: $navigationShare.isCalibrating, label: {EmptyView()})
             HStack{
                 if faceDepthManager.colorCGImage != nil {
-                    Image(faceDepthManager.colorCGImage, scale: 5, label: Text("colorCGImage"))
-                    
+                    ZStack(alignment: .topLeading){
+                        Image(faceDepthManager.colorCGImage, scale: imageScale, label: Text("colorCGImage"))
+                        if ((faceDepthManager.faceRect != nil)) {
+                            Rectangle()
+                                .fill(Color.orange)
+                                .opacity(0.5)
+                                .offset(x: faceDepthManager.imageSize.width * faceDepthManager.faceRect.minX / imageScale,
+                                        y: faceDepthManager.imageSize.height * (1.0 - faceDepthManager.faceRect.maxY) / imageScale)
+                                .frame(width: faceDepthManager.imageSize.width * faceDepthManager.faceRect.width / imageScale,
+                                       height: faceDepthManager.imageSize.height * faceDepthManager.faceRect.height / imageScale)
+                        }
+                    }
                 }
                 VStack{
                     Text("Depth : \(faceDepthManager.faceDepth) [m]")

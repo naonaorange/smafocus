@@ -17,13 +17,15 @@ import VideoToolbox
 class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSessionDelegate{
     var sceneView: ARSCNView = ARSCNView()
     @Published var colorCGImage: CGImage!
+    var colorCIImage: CIImage!
     var colorPixelBuffer: CVPixelBuffer!
     var depthPixelBuffer: CVPixelBuffer!
     var confidencePixelBuffer: CVPixelBuffer!
     let context = CIContext(options: nil)
     var sessionCount = 0
     var isFaceDetected = false
-    
+    @Published var imageSize : CGSize!
+    @Published var faceRect : CGRect!
     //var colorImageDrawLayer: CALayer?
     //var depthImageDrawLayer: CALayer?
     //private var colorImageFaceViews = [UIView]()
@@ -84,14 +86,17 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if ((session.currentFrame?.capturedImage == nil) ||
             (session.currentFrame?.sceneDepth?.depthMap == nil) ||
-            (session.currentFrame?.sceneDepth?.confidenceMap == nil)) {
+            (session.currentFrame?.sceneDepth?.confidenceMap == nil)){
             return
         }
+        
         colorPixelBuffer = session.currentFrame?.capturedImage
         depthPixelBuffer = session.currentFrame?.sceneDepth?.depthMap
         confidencePixelBuffer = session.currentFrame?.sceneDepth?.confidenceMap
         
-        //print(CVPixelBufferGetWidth(colorPixelBuffer), CVPixelBufferGetHeight(colorPixelBuffer))
+        imageSize = CGSize(width: CVPixelBufferGetWidth(colorPixelBuffer), height: CVPixelBufferGetHeight(colorPixelBuffer))
+        //print(CVPixelBufferGetWidth(colorPixelBuffer))
+        //1920, 1440
         //print(sessionCount)
         sessionCount = sessionCount + 1
         
@@ -99,8 +104,10 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
             return
         }
         
-        let colorCIImage = CIImage(cvPixelBuffer: self.colorPixelBuffer)
+        self.colorCIImage = CIImage(cvPixelBuffer: self.colorPixelBuffer)
         self.colorCGImage = context.createCGImage(colorCIImage, from: colorCIImage.extent)
+        
+
         
         DispatchQueue.global(qos: .background).async {
             let request = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
@@ -113,6 +120,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         //if let nsError = error as NSError? {
         if error != nil {
             isFaceDetected = false
+            faceRect = nil
             return
         }
         
@@ -123,14 +131,22 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
             //self.depthImageFaceViews.removeAll()
             
             var faceCount = 0
+            if (request?.results?.count == 0) {
+                DispatchQueue.main.async {
+                    self.faceRect = nil
+                }
+                return
+            }
             for face in request?.results as! [VNFaceObservation] {
                 if(faceCount != 0){
                     break
                 }
                 faceCount += 1
                 //print(face.boundingBox)
-                let depth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face)
-                faceDepthBuffer[faceDepthIndex] = depth!
+                guard let depth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face) else{
+                    return
+                }
+                faceDepthBuffer[faceDepthIndex] = depth
                 faceDepth = faceDepthBuffer.reduce(0, +) / Double(faceDepthBuffer.count)
                 faceDepthIndex = faceDepthIndex + 1
                 if (faceDepthIndex >= faceDepthBuffer.count) {
@@ -147,6 +163,40 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                 self.depthImageFaceViews.append(depthFaceView)
                 */
                 
+                /*
+                let rect = CGRect(x: 10, y: 10, width: 10, height: 10)
+                let faceView = UIView(frame: rect)
+                faceView.layer.borderWidth = 1
+                self.colorCIImage.addSubview(faceView)
+                */
+                
+                /*
+                //1.グラフィックスコンテキストをサイズ指定
+                UIGraphicsBeginImageContext(CGSizeMake(300, 300))
+                //1.グラフィックスコンテキストを取得
+                let context:CGContext = UIGraphicsGetCurrentContext()!
+
+                //2.描画用の設定（図形の線の太さを設定）
+                context.setLineWidth(2.0
+                //2.描画用の設定（図形の線の色を設定）
+                let color:CGColor = UIColor.red.cgColor
+                context.setStrokeColor(color)
+
+                //3.パスを作成
+                //CGContextMoveToPoint(context, 50, 50)
+                context.move(to: CGPoint(x: 50, y: 50))
+                //CGContextAddLineToPoint(context, 250, 250)
+                context.addLine(to: CGPoint(x: 250,y: 250))
+                //4.パスを閉じる
+                context.closePath()
+                //4.パスで指定した図形を描画
+                context.strokePath()
+                */
+                
+                DispatchQueue.main.async {
+                    self.faceRect = face.boundingBox
+                }
+                
                 if isAutoFocus {
                     focus = 1693.0 * pow(faceDepth, 0.08)
                     if (focus < 0) {
@@ -158,7 +208,7 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
                         self.bleManager.changeFocus(focus: Int(self.focus))
                     }
                 }
-                print(self.faceDepth, self.focus)
+                //print(self.faceDepth, self.focus)
             }
         //}
     }
