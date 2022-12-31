@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		802A8B5F293C29D200BBE07B /* FaceDepthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */; };
+		80484F66295FDA0800A7F354 /* QrCodeDepthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80484F65295FDA0800A7F354 /* QrCodeDepthManager.swift */; };
 		806E98EF290A93FC00D6CE6A /* SmafocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */; };
 		806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */; };
 		806E98F3290A93FD00D6CE6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806E98F2290A93FD00D6CE6A /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDepthManager.swift; sourceTree = "<group>"; };
+		80484F65295FDA0800A7F354 /* QrCodeDepthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeDepthManager.swift; sourceTree = "<group>"; };
 		806E98EB290A93FC00D6CE6A /* smafocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = smafocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806E98EE290A93FC00D6CE6A /* SmafocusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmafocusApp.swift; sourceTree = "<group>"; };
 		806E98F0290A93FC00D6CE6A /* SearchCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCameraView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				808EEB77290A970C0002C33B /* BLEServiceSetting.swift */,
 				808EEB75290A970C0002C33B /* BMCameraManager.swift */,
 				802A8B5E293C29D200BBE07B /* FaceDepthManager.swift */,
+				80484F65295FDA0800A7F354 /* QrCodeDepthManager.swift */,
 				808EEB8E290C656C0002C33B /* LensCalibrationManager.swift */,
 				808EEB87290B1C000002C33B /* MyCoreData.xcdatamodeld */,
 				808EEB8A290B1CA80002C33B /* Persistent.swift */,
@@ -172,6 +175,7 @@
 				802A8B5F293C29D200BBE07B /* FaceDepthManager.swift in Sources */,
 				808EEB8D290B1EBF0002C33B /* NavigaionShare.swift in Sources */,
 				808EEB89290B1C000002C33B /* MyCoreData.xcdatamodeld in Sources */,
+				80484F66295FDA0800A7F354 /* QrCodeDepthManager.swift in Sources */,
 				806E98F1290A93FC00D6CE6A /* SearchCameraView.swift in Sources */,
 				808EEB7E290A970C0002C33B /* BLEManager.swift in Sources */,
 				808EEB7A290A970C0002C33B /* AutoFocusView.swift in Sources */,

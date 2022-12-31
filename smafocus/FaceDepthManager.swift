@@ -73,7 +73,8 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     }
     
     func stop() {
-        sceneView.session.pause()
+        //sceneView.session.pause()
+        //sceneView.session.delegate = nil
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
