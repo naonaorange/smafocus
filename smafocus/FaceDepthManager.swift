@@ -26,13 +26,8 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     var isFaceDetected = false
     @Published var imageSize : CGSize!
     @Published var faceRect : CGRect!
-    //var colorImageDrawLayer: CALayer?
-    //var depthImageDrawLayer: CALayer?
-    //private var colorImageFaceViews = [UIView]()
-    //private var depthImageFaceViews = [UIView]()
     
     var faceDepth = 0.0
-    //var faceDepthBuffer = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var faceDepthBuffer = [0.0, 0.0, 0.0, 0.0, 0.0]
     var faceDepthIndex = 0
     
@@ -40,10 +35,8 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     var isAutoFocus = false
     var focus = 0.0
     
-    
     override init(){
         super.init()
-        //start()
     }
     
     public func startAutoFocus(manager: BMCameraManager){
@@ -94,9 +87,8 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         depthPixelBuffer = session.currentFrame?.sceneDepth?.depthMap
         confidencePixelBuffer = session.currentFrame?.sceneDepth?.confidenceMap
         
-        imageSize = CGSize(width: CVPixelBufferGetWidth(colorPixelBuffer), height: CVPixelBufferGetHeight(colorPixelBuffer))
-        //print(CVPixelBufferGetWidth(colorPixelBuffer))
         //1920, 1440
+        imageSize = CGSize(width: CVPixelBufferGetWidth(colorPixelBuffer), height: CVPixelBufferGetHeight(colorPixelBuffer))
         //print(sessionCount)
         sessionCount = sessionCount + 1
         
@@ -107,8 +99,6 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
         self.colorCIImage = CIImage(cvPixelBuffer: self.colorPixelBuffer)
         self.colorCGImage = context.createCGImage(colorCIImage, from: colorCIImage.extent)
         
-
-        
         DispatchQueue.global(qos: .background).async {
             let request = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
             let handler = VNImageRequestHandler(cgImage: self.colorCGImage, options: [:])
@@ -117,100 +107,52 @@ class FaceDepthManager: NSObject, ObservableObject, ARSCNViewDelegate, ARSession
     }
     
     func handleDetectedFaces(request: VNRequest?, error: Error?) {
-        //if let nsError = error as NSError? {
         if error != nil {
             isFaceDetected = false
             faceRect = nil
             return
         }
-        
-        //DispatchQueue.main.async {
-            //_ = self.colorImageFaceViews.map { $0.removeFromSuperview() }
-            //self.colorImageFaceViews.removeAll()
-            //_ = self.depthImageFaceViews.map { $0.removeFromSuperview() }
-            //self.depthImageFaceViews.removeAll()
             
-            var faceCount = 0
-            if (request?.results?.count == 0) {
-                DispatchQueue.main.async {
-                    self.faceRect = nil
-                }
+        if (request?.results?.count == 0) {
+            DispatchQueue.main.async {
+                self.faceRect = nil
+            }
+            return
+        }
+        
+        var faceCount = 0
+        for face in request?.results as! [VNFaceObservation] {
+            if(faceCount != 0){
+                break
+            }
+            faceCount += 1
+            guard let depth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face) else{
                 return
             }
-            for face in request?.results as! [VNFaceObservation] {
-                if(faceCount != 0){
-                    break
-                }
-                faceCount += 1
-                //print(face.boundingBox)
-                guard let depth = self.getFaceDepth(depthPixelBuffer: self.depthPixelBuffer, face: face) else{
-                    return
-                }
-                faceDepthBuffer[faceDepthIndex] = depth
-                faceDepth = faceDepthBuffer.reduce(0, +) / Double(faceDepthBuffer.count)
-                faceDepthIndex = faceDepthIndex + 1
-                if (faceDepthIndex >= faceDepthBuffer.count) {
-                    faceDepthIndex = 0
-                }
-                isFaceDetected = true
-                //print(self.faceDepth)
-                /*
-                let colorFaceView = self.getFaceView(uiImageView: self.colorImageView, uiImage: self.colorImage, face: face)
-                let depthFaceView = self.getFaceView(uiImageView: self.depthImageView, uiImage: self.depthImage, face: face)
-                self.colorImageView.addSubview(colorFaceView)
-                self.depthImageView.addSubview(depthFaceView)
-                self.colorImageFaceViews.append(colorFaceView)
-                self.depthImageFaceViews.append(depthFaceView)
-                */
-                
-                /*
-                let rect = CGRect(x: 10, y: 10, width: 10, height: 10)
-                let faceView = UIView(frame: rect)
-                faceView.layer.borderWidth = 1
-                self.colorCIImage.addSubview(faceView)
-                */
-                
-                /*
-                //1.グラフィックスコンテキストをサイズ指定
-                UIGraphicsBeginImageContext(CGSizeMake(300, 300))
-                //1.グラフィックスコンテキストを取得
-                let context:CGContext = UIGraphicsGetCurrentContext()!
-
-                //2.描画用の設定（図形の線の太さを設定）
-                context.setLineWidth(2.0
-                //2.描画用の設定（図形の線の色を設定）
-                let color:CGColor = UIColor.red.cgColor
-                context.setStrokeColor(color)
-
-                //3.パスを作成
-                //CGContextMoveToPoint(context, 50, 50)
-                context.move(to: CGPoint(x: 50, y: 50))
-                //CGContextAddLineToPoint(context, 250, 250)
-                context.addLine(to: CGPoint(x: 250,y: 250))
-                //4.パスを閉じる
-                context.closePath()
-                //4.パスで指定した図形を描画
-                context.strokePath()
-                */
-                
-                DispatchQueue.main.async {
-                    self.faceRect = face.boundingBox
-                }
-                
-                if isAutoFocus {
-                    focus = 1693.0 * pow(faceDepth, 0.08)
-                    if (focus < 0) {
-                        focus = 0
-                    }else if (2048 < focus){
-                        focus = 2048
-                    }
-                    DispatchQueue.main.async {
-                        self.bleManager.changeFocus(focus: Int(self.focus))
-                    }
-                }
-                //print(self.faceDepth, self.focus)
+            faceDepthBuffer[faceDepthIndex] = depth
+            faceDepth = faceDepthBuffer.reduce(0, +) / Double(faceDepthBuffer.count)
+            faceDepthIndex = faceDepthIndex + 1
+            if (faceDepthIndex >= faceDepthBuffer.count) {
+                faceDepthIndex = 0
             }
-        //}
+            isFaceDetected = true
+            
+            DispatchQueue.main.async {
+                self.faceRect = face.boundingBox
+            }
+            
+            if isAutoFocus {
+                focus = 1693.0 * pow(faceDepth, 0.08)
+                if (focus < 0) {
+                    focus = 0
+                }else if (2048 < focus){
+                    focus = 2048
+                }
+                DispatchQueue.main.async {
+                    self.bleManager.changeFocus(focus: Int(self.focus))
+                }
+            }
+        }
     }
     
     func getFaceView(uiImageView: UIImageView, uiImage: UIImage, face: VNFaceObservation) -> UIView {
@@ -328,50 +270,5 @@ extension ARFrame {
         let displayTransform = self.displayTransform(for: orientation, viewportSize: viewPortSize)
         let toViewPortTransform = CGAffineTransform(scaleX: viewPortSize.width, y: viewPortSize.height)
         return normalizeTransform.concatenating(flipTransform).concatenating(displayTransform).concatenating(toViewPortTransform)
-    }
-
-    fileprivate func createTexture(fromPixelBuffer pixelBuffer: CVPixelBuffer, pixelFormat: MTLPixelFormat, planeIndex: Int, textureCache: CVMetalTextureCache) -> CVMetalTexture? {
-        let width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
-        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
-        
-        var texture: CVMetalTexture? = nil
-        let status = CVMetalTextureCacheCreateTextureFromImage(nil, textureCache, pixelBuffer, nil, pixelFormat,
-                                                               width, height, planeIndex, &texture)
-        
-        if status != kCVReturnSuccess {
-            texture = nil
-        }
-        
-        return texture
-    }
-
-    func buildCapturedImageTextures(textureCache: CVMetalTextureCache) -> (textureY: CVMetalTexture, textureCbCr: CVMetalTexture)? {
-        // Create two textures (Y and CbCr) from the provided frame's captured image
-        let pixelBuffer = self.capturedImage
-        
-        guard CVPixelBufferGetPlaneCount(pixelBuffer) >= 2 else {
-            return nil
-        }
-        
-        guard let capturedImageTextureY = createTexture(fromPixelBuffer: pixelBuffer, pixelFormat: .r8Unorm, planeIndex: 0, textureCache: textureCache),
-              let capturedImageTextureCbCr = createTexture(fromPixelBuffer: pixelBuffer, pixelFormat: .rg8Unorm, planeIndex: 1, textureCache: textureCache) else {
-            return nil
-        }
-        
-        return (textureY: capturedImageTextureY, textureCbCr: capturedImageTextureCbCr)
-    }
-
-    func buildDepthTextures(textureCache: CVMetalTextureCache) -> (depthTexture: CVMetalTexture, confidenceTexture: CVMetalTexture)? {
-        guard let depthMap = self.sceneDepth?.depthMap,
-            let confidenceMap = self.sceneDepth?.confidenceMap else {
-                return nil
-        }
-        
-        guard let depthTexture = createTexture(fromPixelBuffer: depthMap, pixelFormat: .r32Float, planeIndex: 0, textureCache: textureCache),
-              let confidenceTexture = createTexture(fromPixelBuffer: confidenceMap, pixelFormat: .r8Uint, planeIndex: 0, textureCache: textureCache) else {
-            return nil
-        }
-        
-        return (depthTexture: depthTexture, confidenceTexture: confidenceTexture)
     }
 }
