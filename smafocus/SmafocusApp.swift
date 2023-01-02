@@ -17,7 +17,7 @@ struct SmafocusApp: App {
                 .environmentObject(NavigationShare())
                 .environmentObject(FaceDepthManager())
                 .environmentObject(QrCodeDepthManager())
-                //.environmentObject(LensCalibrationManager())
+                .environmentObject(LensCalibrationManager())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

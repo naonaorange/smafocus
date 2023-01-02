@@ -9,11 +9,6 @@ import SwiftUI
 import CoreData
 import Foundation
 
-struct Person: Identifiable {
-    public let id = UUID()
-    public var givenName: String
-    public var familyName: String
-}
 
 struct BLEConnectionView: View {
     @EnvironmentObject var bleManager : BMCameraManager
@@ -95,6 +90,6 @@ struct BLEConnectionView_Previews: PreviewProvider {
             .environmentObject(BMCameraManager())
             .environmentObject(NavigationShare())
             .environmentObject(FaceDepthManager())
-            //.environmentObject(LensCalibrationManager())
+            .environmentObject(LensCalibrationManager())
     }
 }
